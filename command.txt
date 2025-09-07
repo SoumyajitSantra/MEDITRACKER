@@ -1,0 +1,6 @@
+npm i
+npm run dev
+
+------------
+npm install lucide-react
+npm install react-router-dom
