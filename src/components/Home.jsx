@@ -1,7 +1,9 @@
- import {Link} from "react-router-dom";
-import { Package, ShoppingCart, TrendingUp, AlertTriangle } from 'lucide-react';
-import somuImg from '../assets/somu.jpg';
+import { Link } from "react-router-dom";
+import { Package, BarChart3, ShoppingCart, Calendar, TrendingUp, AlertTriangle } from 'lucide-react';
+import Summary from "./Summary";
+import somuImg from '../assets/somu.png';
 import souravImg from '../assets/sourav.jpg';
+import soumikImg from '../assets/soumik.jpg';
 
 
 const Home = () => {
@@ -15,22 +17,22 @@ const Home = () => {
       name: "Soumyajit Santra",
       role: "Full Stack Developer",
       github: "https://github.com/soumyajit",
-      linkedin: "https://linkedin.com/in/soumyajit",
+      linkedin: "https://www.linkedin.com/in/soumyajit-santra-548312301/",
       image: somuImg
     },
     {
       name: "Sourav Pradhan",
       role: "Full Stack Developer",
-      github: "https://github.com/johndoe",
-      linkedin: "https://linkedin.com/in/johndoe",
+      github: "https://github.com/Sourav721448",
+      linkedin: "https://www.linkedin.com/in/sourav-pradhan-018591341/",
       image: souravImg
     },
     {
-      name: "Jane Smith",
+      name: "Soumik Sannigrahi",
       role: "Full Stack Developer",
-      github: "https://github.com/janesmith",
-      linkedin: "https://linkedin.com/in/janesmith",
-      image: "https://via.placeholder.com/80"
+      github: "https://github.com/soumiksannigrahi",
+      linkedin: "https://www.linkedin.com/in/soumik-sannigrahi-426727262",
+      image: soumikImg
     }
   ];
 
@@ -70,7 +72,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-8">
       <b>home</b>
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
@@ -95,34 +97,16 @@ const Home = () => {
 
           {/* Right Content */}
           <div className="text-center lg:text-right">
-            <div className="text-5xl font-bold text-gray-100">MediTracker</div>
+            <div className="text-5xl font-bold text-white-00"><span>Medi</span><span>Tracker</span></div>
             <div className="text-cyan-300 text-lg mt-1">Your Digital Partner</div>
           </div>
 
         </div>
       </div>
 
+     <Summary/>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {stats.map((stat, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className={`p-3 rounded-lg ${stat.color}`}>
-                <stat.icon className="text-white" size={24} />
-              </div>
-              <div className="text-right">
-                <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
-              </div>
-            </div>
-            <h3 className="font-semibold text-gray-700 mb-2">{stat.title}</h3>
-            <p className="text-sm text-gray-500">{stat.trend}</p>
-          </div>
-        ))}
-      </div>
+
 
       {/* Quick Actions */}
       <div className="bg-white rounded-xl shadow-lg p-8">
@@ -194,7 +178,7 @@ const Home = () => {
           ))}
         </div>
       </div>
- 
+
 
 
     </div>
