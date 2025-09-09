@@ -15,7 +15,7 @@ import AutoOrder from "./components/AutoOrder";
 function App() {
   const [count, setCount] = useState(0)
   return (
-    
+    <div className="bg-amber-50">
     <div className="flex-grow pt-20 pb-20">
       
       <NavBar/>
@@ -33,9 +33,11 @@ function App() {
           <Route path="*" element={<Home />} />
         </Routes>
       </div>
-      
+      </div>
       <Footer />
-    </div>
+
+     </div>
+    
   );
 }
 
