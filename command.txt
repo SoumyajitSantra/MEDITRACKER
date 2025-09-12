@@ -4,3 +4,4 @@ npm run dev
 ------------
 npm install lucide-react
 npm install react-router-dom
+npm install sweetalert2

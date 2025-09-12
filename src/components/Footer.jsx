@@ -1,67 +1,154 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import MyLogoFile from "../assets/MyLogo.svg";
 
 const Footer = () => {
-    return (
-        <footer className="bg-gray-900 text-gray-300 w-full mt-12 ">
-            <div className="max-w-7xl mx-auto px-6 py-10">
-
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-10 ">
-
-                    {/* About */}
-                    <div>
-                        <h3 className="text-2xl font-bold mb-4 text-white">MediTracker</h3>
-                        <p className="text-sm text-gray-400 leading-relaxed">
-                            A modern pharmacy management solution to streamline inventory, sales, and alerts.
-                            Manage your store efficiently with real-time insights.
-                        </p>
-                    </div>
-
-                    {/* Quick Links */}
-                    <div>
-                        <h3 className="text-lg font-semibold mb-4 text-white">Quick Links</h3>
-                        <ul className="space-y-2 text-sm">
-                            <li><Link to="/home" className="hover:text-yellow-300 transition">Dashboard</Link></li>
-                            <li><Link to="/add-stock" className="hover:text-yellow-300 transition">Add Stock</Link></li>
-                            <li><Link to="/sell" className="hover:text-yellow-300 transition">Sell</Link></li>
-                            <li><Link to="/inventory" className="hover:text-yellow-300 transition">Inventory</Link></li>
-                            <li><Link to="/auto-order" className="hover:text-yellow-300 transition">Auto Order</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* Resources */}
-                    <div>
-                        <h3 className="text-lg font-semibold mb-4 text-white">Resources</h3>
-                        <ul className="space-y-2 text-sm">
-                            <li><Link to="/documentation" className="hover:text-yellow-300 transition">Documentation</Link></li>
-                            <li><Link to="/api" className="hover:text-yellow-300 transition">API Reference</Link></li>
-                            <li><Link to="/support" className="hover:text-yellow-300 transition">Support</Link></li>
-                            <li><Link to="/community" className="hover:text-yellow-300 transition">Community</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* Contact */}
-                    <div>
-                        <h3 className="text-lg font-semibold mb-4 text-white">Contact Us</h3>
-                        <p className="text-sm mb-2">📧 support@meditracker.com</p>
-                        <p className="text-sm mb-4">📞 +91 98765 43210</p>
-                        <div className="flex space-x-4 text-lg">
-                            <a href="https://www.meditracker.com" className="hover:text-yellow-300 transition">🌐</a>
-                            <a href="https://twitter.com/meditracker" className="hover:text-yellow-300 transition">🐦</a>
-                            <a href="https://linkedin.com/company/meditracker" className="hover:text-yellow-300 transition">💼</a>
-                        </div>
-                    </div>
-
+  return (
+    <footer className="bg-[#1b2735] text-gray-300 w-full mt-12">
+      <div className="max-w-7xl mx-auto px-6 py-6">
+        {/* Top Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {/* Logo & About */}
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <img
+                src={MyLogoFile}
+                alt="MediTracker Logo"
+                className="h-14 w-auto"
+              />
+              <div>
+                <div className="text-lg lg:text-xl font-bold leading-tight">
+                  <span className="text-blue-400">Medi</span>
+                  <span className="text-green-400">Tracker</span>
                 </div>
-
-                {/* Bottom Bar */}
-                <div className="border-t border-gray-700 mt-12 pt-6 text-center text-sm text-gray-400">
-                    © {new Date().getFullYear()} <span className="font-semibold text-white">PharmaCare</span>. All rights reserved.
-                </div>
-
+                <p className="text-xs text-gray-400">Pharmacy & Inventory</p>
+              </div>
             </div>
-        </footer>
-    );
+
+            <p className="text-xs text-gray-400 mb-3 leading-relaxed">
+              Seamless inventory, sales, and real-time alerts for your pharmacy.
+            </p>
+
+            <p className="text-xs mb-1">📞 +91 9999 999 999</p>
+            <p className="text-xs">✉️ youremailid.com</p>
+          </div>
+
+          {/* Information */}
+          <div>
+            <h3 className="text-sm font-semibold mb-2 text-gray-200">
+              Information
+            </h3>
+            <ul className="space-y-1 text-xs">
+              <li>
+                <Link to="/about" className="hover:text-blue-400 transition">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/search" className="hover:text-blue-400 transition">
+                  More Search
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="hover:text-blue-400 transition">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link to="/testimonials" className="hover:text-blue-400 transition">
+                  Testimonials
+                </Link>
+              </li>
+              <li>
+                <Link to="/events" className="hover:text-blue-400 transition">
+                  Events
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Helpful Links */}
+          <div>
+            <h3 className="text-sm font-semibold mb-2 text-gray-200">
+              Helpful Links
+            </h3>
+            <ul className="space-y-1 text-xs">
+              <li>
+                <Link to="/services" className="hover:text-blue-400 transition">
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link to="/support" className="hover:text-blue-400 transition">
+                  Supports
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="hover:text-blue-400 transition">
+                  Terms & Condition
+                </Link>
+              </li>
+              <li>
+                <Link to="/privacy" className="hover:text-blue-400 transition">
+                  Privacy Policy
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Newsletter */}
+          <div>
+            <h3 className="text-sm font-semibold mb-2 text-gray-200">
+              Subscribe
+            </h3>
+            <div className="flex">
+              <input
+                type="email"
+                placeholder="Email address"
+                className="p-2 w-full rounded-l-md bg-gray-100 text-gray-800 placeholder-gray-500 focus:outline-none text-xs"
+              />
+              <button className="bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-r-md text-white text-xs font-medium">
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Social Icons */}
+        <div className="flex justify-center space-x-3 mt-6">
+          <a
+            href="#"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 text-gray-200 hover:bg-blue-500 hover:text-white transition text-xs"
+          >
+            f
+          </a>
+          <a
+            href="#"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 text-gray-200 hover:bg-blue-500 hover:text-white transition text-xs"
+          >
+            in
+          </a>
+          <a
+            href="#"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 text-gray-200 hover:bg-blue-500 hover:text-white transition text-xs"
+          >
+            🐦
+          </a>
+          <a
+            href="#"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 text-gray-200 hover:bg-blue-500 hover:text-white transition text-xs"
+          >
+            ⓘ
+          </a>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-700 mt-4 pt-3 text-center text-[11px] text-gray-400">
+          © {new Date().getFullYear()} Company. All Rights Reserved.
+        </div>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;
