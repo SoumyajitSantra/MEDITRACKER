@@ -31,7 +31,7 @@ const NavBar = ({ onLogout }) => {
             <img
               src={MyLogoFile}
               alt="MediTracker Logo"
-              className="h-18 w-auto"
+              className="h-12 w-auto"
             />
             <div>
               <div className="text-xl lg:text-2xl font-extrabold leading-tight whitespace-nowrap">
@@ -51,14 +51,14 @@ const NavBar = ({ onLogout }) => {
                 key={id}
                 to={`/${id}`}
                 className={({ isActive }) =>
-                  `nav-link flex items-center gap-2 px-3 py-2 lg:px-4 rounded-full font-medium transition-all duration-500 ${
+                  `flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-300 ${
                     isActive
-                      ? "active-rounded"
-                      : "text-gray-600 hover:text-blue-600 hover:scale-110"
+                      ? "bg-blue-400 text-white shadow-md scale-105"
+                      : "text-gray-700 hover:bg-gray-100 hover:text-gray-800 hover:shadow-sm hover:scale-105"
                   }`
                 }
               >
-                <Icon className="nav-icon" size={22} />
+                <Icon className="nav-icon" size={20} />
                 <span className="text-lg whitespace-nowrap">{label}</span>
               </NavLink>
             ))}
@@ -66,10 +66,9 @@ const NavBar = ({ onLogout }) => {
 
           {/* Right Column: Logout Button */}
           <div className="flex justify-end col-start-3">
-            {/* MODIFIED: Corrected button classes for responsive layout */}
             <button
               onClick={onLogout}
-              className="border border-red-500 text-red-500 font-semibold shadow-sm hover:bg-red-500 hover:text-white hover:scale-110 transform transition flex items-center justify-center rounded-full p-2 sm:px-4 sm:py-2"
+              className="border border-red-500 text-red-500 font-semibold shadow-sm hover:bg-red-500 hover:text-white hover:scale-105 transform transition flex items-center justify-center rounded-full p-2 sm:px-4 sm:py-2"
             >
               <LogOut size={20} />
               <span className="hidden sm:inline text-lg ml-2">Logout</span>
@@ -87,12 +86,12 @@ const NavBar = ({ onLogout }) => {
             className={({ isActive }) =>
               `flex-1 flex flex-col items-center justify-center gap-1 py-1 px-2 rounded-full transition-all duration-300 ${
                 isActive
-                  ? "text-blue-600 scale-110 font-semibold"
-                  : "text-gray-600 hover:text-blue-600 hover:scale-110"
+                  ? "bg-blue-400 text-white shadow-md scale-105"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-800 hover:shadow-sm hover:scale-105"
               }`
             }
           >
-            <Icon size={22} />
+            <Icon size={20} />
             <span className="text-[11px]">{label}</span>
           </NavLink>
         ))}
@@ -132,26 +131,6 @@ const NavBar = ({ onLogout }) => {
           }
           @keyframes gradientShiftGreen {
             to { background-position: 200% center; }
-          }
-
-          .nav-link {
-            position: relative;
-            transition: all 0.4s ease;
-          }
-          .nav-link.active-rounded {
-            background: linear-gradient(90deg, #2563eb, #3b82f6, #60a5fa);
-            color: white !important;
-            box-shadow: 0 4px 12px rgba(37,99,255,0.4);
-            transform: scale(1.1);
-            border-radius: 9999px;
-          }
-          .nav-link:hover {
-            color: #2563eb;
-            transform: scale(1.12);
-          }
-          .nav-link:hover .nav-icon {
-            transform: scale(1.2);
-            transition: all 0.3s ease;
           }
         `}
       </style>

@@ -1,0 +1,43 @@
+/* Animated gradient text for Medi */
+.medi-text-blue {
+  background: linear-gradient(90deg, #1e3a8a, #2563eb, #3b82f6);
+  background-size: 200% auto;
+
+  /* Standard property */
+  background-clip: text;
+
+  /* Vendor prefix for Safari & Chrome */
+  -webkit-background-clip: text;
+
+  /* Make text transparent to show background */
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: gradientShiftBlue 6s linear infinite;
+}
+
+@keyframes gradientShiftBlue {
+  to { background-position: 200% center; }
+}
+
+/* Animated gradient text for Tracker */
+.tracker-text-green {
+  background: linear-gradient(90deg, #059669, #10b981, #34d399);
+  background-size: 200% auto;
+
+  /* Standard property */
+  background-clip: text;
+
+  /* Vendor prefix for Safari & Chrome */
+  -webkit-background-clip: text;
+
+  /* Make text transparent to show background */
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: gradientShiftGreen 6s linear infinite;
+}
+
+@keyframes gradientShiftGreen {
+  to { background-position: 200% center; }
+}
