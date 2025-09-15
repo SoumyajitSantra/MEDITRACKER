@@ -8,7 +8,7 @@ import {
   MapPin,
 } from "lucide-react";
 import Summary from "./Summary";
-const ShowDetails = () => {
+const Inventory = ({isLoggedIn}) => {
   const [medicines, setMedicines] = useState([]);
   const [filteredMedicines, setFilteredMedicines] = useState([]);
   const [filterCategory, setFilterCategory] = useState("All");
@@ -146,14 +146,16 @@ const ShowDetails = () => {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <span class ="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
           Inventory Details
+          </span>
         </h1>
         <p className="text-gray-600">
           Complete overview of your medicine inventory
         </p>
       </div>
 
-     <Summary/>
+    <Summary isLoggedIn={isLoggedIn} />
 
       {/* Filters */}
       <div className="bg-white rounded-xl shadow-lg">
@@ -322,4 +324,4 @@ const ShowDetails = () => {
   );
 };
 
-export default ShowDetails;
+export default Inventory;

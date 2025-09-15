@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import { Mail, Lock, User, Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const GoogleIcon = () => (
   <svg width="20" height="20" viewBox="0 0 533.5 544.3">
@@ -32,7 +33,10 @@ const FacebookIcon = () => (
   </svg>
 );
 
-const App = () => {
+
+// ... GoogleIcon and FacebookIcon code stays same ...
+
+const Auth = ({ setIsLoggedIn }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +44,8 @@ const App = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,21 +58,30 @@ const App = () => {
       } else {
         console.log("Signup with:", { name, email, password });
       }
+      setIsLoggedIn(true);
+      localStorage.setItem("isLoggedIn", "true");
       setLoading(false);
+      navigate("/"); // <-- redirect back to home
     }, 1200);
   };
 
   const handleGoogleSignIn = () => {
     console.log("Google Sign In clicked");
+    setIsLoggedIn(true);
+    localStorage.setItem("isLoggedIn", "true");
+    navigate("/");
   };
 
   const handleFacebookSignIn = () => {
     console.log("Facebook Sign In clicked");
+    setIsLoggedIn(true);
+    localStorage.setItem("isLoggedIn", "true");
+    navigate("/");
   };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden font-sans">
-      {/* Animated Background */}
+      {/* Background */}
       <div className="absolute inset-0 bg-meds-background -z-10"></div>
 
       {/* Auth Card */}
@@ -91,7 +106,7 @@ const App = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Full Name"
-                  className="w-full pl-12 pr-4 py-3 bg-white/70 text-gray-900 placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-blue-400 outline-none transition"
+                  className="w-full pl-12 pr-4 py-3 bg-white text-gray-900 placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition caret-black selection:bg-blue-200"
                   required
                 />
               </div>
@@ -107,7 +122,7 @@ const App = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email Address"
-                className="w-full pl-12 pr-4 py-3 bg-white/70 text-gray-900 placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-blue-400 outline-none transition"
+                className="w-full pl-12 pr-4 py-3 bg-white text-gray-900 placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition caret-black selection:bg-blue-200"
                 required
               />
             </div>
@@ -122,7 +137,7 @@ const App = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className="w-full pl-12 pr-12 py-3 bg-white/70 text-gray-900 placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-blue-400 outline-none transition"
+                className="w-full pl-12 pr-12 py-3 bg-white text-gray-900 placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition caret-black selection:bg-blue-200"
                 required
               />
               <button
@@ -156,7 +171,7 @@ const App = () => {
             <hr className="flex-grow border-t border-gray-300" />
           </div>
 
-          {/* Social Sign-In Buttons */}
+          {/* Social Logins */}
           <div className="flex flex-col gap-3">
             <button
               onClick={handleGoogleSignIn}
@@ -173,9 +188,10 @@ const App = () => {
             </button>
           </div>
 
+          {/* Toggle */}
           <div className="mt-6 text-center">
             <button
-              onClick={() => setIsLogin(!isLogin)}
+              onClick={() => setIsLogin(!isLogin)} // <-- FIXED toggle
               className="text-blue-600 hover:text-blue-800 font-medium transition"
             >
               {isLogin
@@ -186,7 +202,7 @@ const App = () => {
         </div>
       </div>
 
-      {/* Zoom In/Out Background */}
+      {/* Background Animation */}
       <style>
         {`
           .bg-meds-background {
@@ -195,11 +211,8 @@ const App = () => {
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            filter: blur(2px);
-            transform: scale(1);
             animation: zoomInOut 10s ease-in-out infinite alternate;
           }
-
           @keyframes zoomInOut {
             0% { transform: scale(1); }
             50% { transform: scale(1.08); }
@@ -211,4 +224,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Auth;
