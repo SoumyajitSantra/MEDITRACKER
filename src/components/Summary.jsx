@@ -1,12 +1,15 @@
 import React from "react";
 import { Package, BarChart3, Calendar, AlertTriangle } from "lucide-react";
 
-const Summary = () => {
-  // Dummy data
+const Summary = ({ isLoggedIn }) => {
+  // Real data (for logged-in users)
   const filteredMedicines = new Array(120).fill(0);
   const totalValue = 5600.75;
   const expiredMedicines = new Array(5).fill(0);
   const lowStockMedicines = new Array(12).fill(0);
+
+  // Dummy data (for guests)
+  const dummyValue = "--";
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -16,7 +19,9 @@ const Summary = () => {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-gray-600 text-sm">Total Medicines</p>
-            <p className="text-2xl font-bold text-gray-900">{filteredMedicines.length}</p>
+            <p className="text-2xl font-bold text-gray-900">
+              {isLoggedIn ? filteredMedicines.length : dummyValue}
+            </p>
           </div>
           <div className="bg-blue-100 p-3 rounded-full relative group">
             <Package className="text-blue-500" size={32} />
@@ -32,7 +37,9 @@ const Summary = () => {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-gray-600 text-sm">Total Value</p>
-            <p className="text-2xl font-bold text-gray-900">${totalValue.toFixed(2)}</p>
+            <p className="text-2xl font-bold text-gray-900">
+              {isLoggedIn ? `$${totalValue.toFixed(2)}` : dummyValue}
+            </p>
           </div>
           <div className="bg-green-100 p-3 rounded-full relative group">
             <BarChart3 className="text-green-500" size={32} />
@@ -48,7 +55,9 @@ const Summary = () => {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-gray-600 text-sm">Expired Items</p>
-            <p className="text-2xl font-bold text-red-600">{expiredMedicines.length}</p>
+            <p className="text-2xl font-bold text-red-600">
+              {isLoggedIn ? expiredMedicines.length : dummyValue}
+            </p>
           </div>
           <div className="bg-red-100 p-3 rounded-full relative group">
             <Calendar className="text-red-500" size={32} />
@@ -64,7 +73,9 @@ const Summary = () => {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-gray-600 text-sm">Low Stock</p>
-            <p className="text-2xl font-bold text-orange-600">{lowStockMedicines.length}</p>
+            <p className="text-2xl font-bold text-orange-600">
+              {isLoggedIn ? lowStockMedicines.length : dummyValue}
+            </p>
           </div>
           <div className="bg-orange-100 p-3 rounded-full relative group">
             <AlertTriangle className="text-orange-500" size={32} />
