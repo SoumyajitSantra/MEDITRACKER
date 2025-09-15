@@ -95,7 +95,8 @@ const AddStock = () => {
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-8">
       <div className="mb-10 ">
-        <h1 className="text-4xl font-bold text-gray-900">Stock Entry</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+           < span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Stock Entry</span></h1>
         <p className="text-gray-500 mt-2">
           Add new medicines to your inventory system
         </p>
