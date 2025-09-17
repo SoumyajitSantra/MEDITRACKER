@@ -127,16 +127,39 @@ const Sell = ({ isLoggedIn }) => {
 
   const removeFromCart = (id) => setCart(cart.filter((item) => item.id !== id));
 
-  const handleSale = () => {
-    if (cart.length === 0) {
-      setError("Please add at least one medicine to complete the sale.");
-      return;
-    }
-    if (!phone && !email) {
-      setError("Please provide a phone number or email address.");
-      return;
-    }
+ const handleSale = async () => {
+  if (cart.length === 0) {
+    setError("Please add at least one medicine to complete the sale.");
+    return;
+  }
+  if (!phone && !email) {
+    setError("Please provide a phone number or email address.");
+    return;
+  }
 
+  try {
+    // 🔹 Send sale to backend
+    const res = await fetch("http://localhost:8000/api/sales", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+      },
+      body: JSON.stringify({
+        customer: { phone, email },
+        items: cart.map((c) => ({
+          medicineId: c.id,
+          quantity: parseInt(c.sellQuantity),
+        })),
+      }),
+    });
+
+    if (!res.ok) throw new Error("Failed to complete sale");
+
+    const data = await res.json();
+    console.log("Sale saved:", data);
+
+    // 🔹 Update local medicines after sale
     const updatedMeds = medicines.map((m) => {
       const soldItem = cart.find((c) => c.id === m.id);
       return soldItem
@@ -145,6 +168,7 @@ const Sell = ({ isLoggedIn }) => {
     });
     setMedicines(updatedMeds);
 
+    // Reset form + cart
     setCart([]);
     setPhone("");
     setEmail("");
@@ -160,7 +184,17 @@ const Sell = ({ isLoggedIn }) => {
       showConfirmButton: false,
       timer: 2500,
     });
-  };
+  } catch (err) {
+    console.error("Error in handleSale:", err);
+    Swal.fire({
+      icon: "error",
+      title: "Sale Failed",
+      text: "Could not save sale. Please try again.",
+      confirmButtonColor: "#EF4444",
+    });
+  }
+};
+
 
   const grandTotal = cart.reduce(
     (sum, item) => sum + item.price * (parseInt(item.sellQuantity) || 0),
@@ -425,3 +459,5 @@ const Sell = ({ isLoggedIn }) => {
 };
 
 export default Sell;
+
+
