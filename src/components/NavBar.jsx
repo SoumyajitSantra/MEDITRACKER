@@ -1,5 +1,8 @@
 
-import React, { useState } from "react";
+
+
+import React, { useState, useRef, useEffect } from "react";
+
 import { NavLink } from "react-router-dom";
 import {
   Home,
@@ -18,6 +21,21 @@ const NavBar = ({ onLogout, isLoggedIn, user }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
 
+  const profileRef = useRef(null);
+
+  // ✅ Close profile dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const navItems = [
     { id: "home", label: "Home", icon: Home, path: "/" },
     { id: "add-stock", label: "Add Stock", icon: Package, path: "/add-stock" },
@@ -26,12 +44,9 @@ const NavBar = ({ onLogout, isLoggedIn, user }) => {
     { id: "auto-order", label: "Auto Order", icon: RotateCcw, path: "/auto-order" },
   ];
 
-  // ✅ derive values safely
   const displayName =
     user?.username || user?.displayName || (user?.email ? user.email.split("@")[0] : "");
   const displayEmail = user?.email || "";
-
-  // ✅ Avatar: photo > first letter of username > first letter of email > ?
   const avatarLetter =
     displayName?.charAt(0)?.toUpperCase() ||
     displayEmail?.charAt(0)?.toUpperCase() ||
@@ -84,7 +99,7 @@ const NavBar = ({ onLogout, isLoggedIn, user }) => {
           </div>
 
           {/* Avatar + Profile */}
-          <div className="flex items-center gap-2 relative">
+          <div className="flex items-center gap-2 relative" ref={profileRef}>
             {isLoggedIn ? (
               <div className="relative">
                 <button
@@ -166,7 +181,6 @@ const NavBar = ({ onLogout, isLoggedIn, user }) => {
             </NavLink>
           ))}
 
-          {/* ❌ Removed logout from here */}
           {!isLoggedIn && (
             <div className="border-t pt-3">
               <NavLink
