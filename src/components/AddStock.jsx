@@ -1,6 +1,6 @@
+
 import React, { useState } from "react";
 import { Package, Scan, Plus, Check, MapPin } from "lucide-react";
-// import { storageUtils } from "../utils/storage"; // if you ever use local storage
 
 const AddStock = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +13,7 @@ const AddStock = () => {
     branchId: "",
     supplier: "",
     category: "General",
-    storageLocation: "", // NEW FIELD
+    storageLocation: "",
   });
 
   const [success, setSuccess] = useState(false);
@@ -35,11 +35,10 @@ const AddStock = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newMedicine = {
-      id: Date.now().toString(),
       name: formData.name,
       barcode: formData.barcode,
       batchNumber: formData.batchNumber,
@@ -53,41 +52,38 @@ const AddStock = () => {
       addedAt: new Date().toISOString(),
     };
 
-    // 🔹 BACKEND INTEGRATION WILL GO HERE
-    // Example (uncomment & adjust when backend ready):
-    /*
-    fetch("http://localhost:5000/api/medicines", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newMedicine),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Saved successfully:", data);
-      })
-      .catch((err) => {
-        console.error("Error saving medicine:", err);
+    try {
+      const res = await fetch("http://localhost:8000/api/medicines", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // 🔹 JWT if logged in
+        },
+        body: JSON.stringify(newMedicine),
       });
-    */
 
-    // 🔹 For now, just log
-    console.log("Medicine ready to send:", newMedicine);
+      if (!res.ok) throw new Error("Failed to save medicine");
 
-    setSuccess(true);
+      await res.json();
+      setSuccess(true);
 
-    // Reset form
-    setFormData({
-      name: "",
-      barcode: "",
-      batchNumber: "",
-      expiryDate: "",
-      quantity: "",
-      price: "",
-      branchId: "",
-      supplier: "",
-      category: "General",
-      storageLocation: "",
-    });
+      // Reset form
+      setFormData({
+        name: "",
+        barcode: "",
+        batchNumber: "",
+        expiryDate: "",
+        quantity: "",
+        price: "",
+        branchId: "",
+        supplier: "",
+        category: "General",
+        storageLocation: "",
+      });
+    } catch (err) {
+      console.error("Error saving medicine:", err);
+      alert("Failed to save medicine. Please try again.");
+    }
 
     setTimeout(() => setSuccess(false), 3000);
   };
@@ -95,8 +91,11 @@ const AddStock = () => {
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-8">
       <div className="mb-10 ">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-           < span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Stock Entry</span></h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            Stock Entry
+          </span>
+        </h1>
         <p className="text-gray-500 mt-2">
           Add new medicines to your inventory system
         </p>
@@ -111,7 +110,7 @@ const AddStock = () => {
 
       <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
         <form onSubmit={handleSubmit} className="space-y-10">
-          {/* Barcode Section */}
+          {/* 🔹 Barcode Section */}
           <div>
             <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
               <Scan className="mr-2 text-blue-600" size={22} />
@@ -131,7 +130,7 @@ const AddStock = () => {
             </p>
           </div>
 
-          {/* Medicine Details */}
+          {/* 🔹 Medicine Details */}
           <div>
             <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
               <Package className="mr-2 text-green-600" size={22} />
@@ -204,7 +203,7 @@ const AddStock = () => {
             </div>
           </div>
 
-          {/* Stock Info */}
+          {/* 🔹 Stock Info */}
           <div>
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
               Stock Information
@@ -270,7 +269,7 @@ const AddStock = () => {
                 />
               </div>
 
-              {/* Storage Location - NEW */}
+              {/* Storage Location */}
               <div className="md:col-span-2">
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
                   <MapPin className="mr-2 text-purple-600" size={18} />
@@ -288,7 +287,7 @@ const AddStock = () => {
             </div>
           </div>
 
-          {/* Submit */}
+          {/* 🔹 Submit */}
           <div>
             <button
               type="submit"

@@ -47,23 +47,39 @@ const Auth = ({ setIsLoggedIn }) => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError("");
+  setLoading(true);
 
-    setTimeout(() => {
-      if (isLogin) {
-        console.log("Login with:", { email, password });
-      } else {
-        console.log("Signup with:", { name, email, password });
-      }
-      setIsLoggedIn(true);
-      localStorage.setItem("isLoggedIn", "true");
-      setLoading(false);
-      navigate("/"); // <-- redirect back to home
-    }, 1200);
-  };
+  try {
+    const endpoint = isLogin
+      ? "http://localhost:8000/api/auth/login"
+      : "http://localhost:8000/api/auth/register";
+
+    const body = isLogin ? { email, password } : { name, email, password };
+
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Auth failed");
+
+    // 🔹 Save token for future requests
+    localStorage.setItem("token", data.accessToken);
+
+    setIsLoggedIn(true);
+    navigate("/");
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleGoogleSignIn = () => {
     console.log("Google Sign In clicked");
@@ -225,3 +241,5 @@ const Auth = ({ setIsLoggedIn }) => {
 };
 
 export default Auth;
+
+
